@@ -1,0 +1,111 @@
+system:
+  sensor_config: /etc/sensors/imx335_spike5.bin
+  server_enable: false
+  web_port: 80
+  web_enable_auth: false
+  web_auth_user: admin
+  web_auth_pass: 12345
+  web_enable_static: false
+  isp_thread_stack_size: 16384
+  venc_stream_thread_stack_size: 16384
+  web_server_thread_stack_size: 65536
+  watchdog: 30
+
+isp:
+  mirror: true
+  flip: true
+  antiflicker: 0
+
+osd:
+  enable: false
+
+mdns:
+  enable: false
+
+rtsp:
+  enable: false
+  enable_auth: false
+  auth_user: admin
+  auth_pass: 12345
+  port: 554
+
+stream:
+  enable: false
+  udp_srcport: 5600
+  dest:
+    - udp://239.255.255.0:5600
+
+fpv:
+  enable: true
+  port: 5600
+  ip: 127.0.0.1
+  noiselevel: 0
+  intraQp: false
+  #intraLine: 16
+  cus3A: true
+  maxQp: 48
+  minQp: 12
+  IPQPDelta: -4
+  maxIQp: 48 
+  minIQp: 12
+  maxIPProp: 5
+  maxISize: 0
+  maxPSize: 0
+
+ts:
+  enable: true
+  ts_port_rx: 12346
+  ts_port_tx: 12345
+  ip: 127.0.0.1
+  
+night_mode:
+  enable: false
+  ir_sensor_pin: 62
+  check_interval_s: 10
+  ir_cut_pin1: 1
+  ir_cut_pin2: 2
+  ir_led_pin: 3
+  pin_switch_delay_us: 150
+  adc_device: /dev/sar_adc_drv
+  adc_threshold: 128
+
+http_post:
+  enable: false
+  host: <your host>
+  url: /~example/000000000000/%Y/%m/%d/%H.%M.jpg
+  width: 640
+  height: 360
+  qfactor: 90
+  interval: 60
+  login: <your login>
+  password: <yout pass>
+
+audio:
+  enable: false
+  srate: 48000
+  bitrate: 128
+
+mp4:
+  enable: true
+  codec: H265
+  mode: CBR
+  width: 1920
+  height: 1080
+  fps: 120
+  gop: 180 
+  bitrate: 8192
+  profile: 1
+
+jpeg:
+  enable: false
+  width: 1920
+  height: 1080
+  qfactor: 70
+
+mjpeg:
+  enable: false
+  mode: CBR
+  width: 3840
+  height: 2160
+  fps: 20
+  bitrate: 1024

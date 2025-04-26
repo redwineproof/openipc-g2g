@@ -1,0 +1,55 @@
+[common]
+log_interval = 100 
+wifi_channel = 149 
+wifi_region = '00' 
+
+[gs]
+streams = [{'name': 'video',   'stream_rx': 0x00, 'stream_tx': None, 'service_type': 'udp_direct_rx',  'profiles': ['base', 'gs_base', 'video', 'gs_video']},
+           {'name': 'mavlink', 'stream_rx': 0x10, 'stream_tx': 0x90, 'service_type': 'mavlink', 'profiles': ['base', 'gs_base', 'mavlink', 'gs_mavlink']},
+           {'name': 'msposd',  'stream_rx': 0x21, 'stream_tx': None, 'service_type': 'udp_direct_rx', 'profiles': ['base', 'gs_base', 'msposd', 'gs_msposd']},
+           {'name': 'timestamp_rx',  'stream_rx': 0x22, 'stream_tx': None, 'service_type': 'udp_direct_rx', 'profiles': ['base', 'gs_base', 'timestamp_rx', 'gs_timestamp_rx']},
+           {'name': 'timestamp_tx',  'stream_rx': None, 'stream_tx': 0x91, 'service_type': 'udp_direct_tx', 'profiles': ['base', 'gs_base', 'timestamp_tx', 'gs_timestamp_tx']}
+           ]
+#{'name': 'tunnel',  'stream_rx': 0x20, 'stream_tx': 0xa0, 'service_type': 'tunnel',  'profiles': ['base', 'gs_base', 'tunnel', 'gs_tunnel']
+
+[msposd]
+frame_type = 'data'  # Use data or rts frames
+fec_k = 1            # FEC K (For tx side. Rx will get FEC settings from session packet)
+fec_n = 2            # FEC N (For tx side. Rx will get FEC settings from session packet)
+fec_timeout = 0      # [ms], 0 to disable. If no new packets during timeout, emit one empty packet if FEC block is open
+fec_delay = 0        # [us], 0 to disable. Issue FEC packets with delay between them.
+
+[timestamp_rx]
+frame_type = 'data'  # Use data or rts frames
+fec_k = 1            # FEC K (For tx side. Rx will get FEC settings from session packet)
+fec_n = 2            # FEC N (For tx side. Rx will get FEC settings from session packet)
+fec_timeout = 0      # [ms], 0 to disable. If no new packets during timeout, emit one empty packet if FEC block is open
+fec_delay = 0        # [us], 0 to disable. Issue FEC packets with delay between them.
+
+[timestamp_tx]
+frame_type = 'data'  # Use data or rts frames
+fec_k = 1            # FEC K (For tx side. Rx will get FEC settings from session packet)
+fec_n = 2            # FEC N (For tx side. Rx will get FEC settings from session packet)
+fec_timeout = 0      # [ms], 0 to disable. If no new packets during timeout, emit one empty packet if FEC block is open
+fec_delay = 0        # [us], 0 to disable. Issue FEC packets with delay between them.
+
+
+[gs_mavlink]
+peer = 'connect://127.0.0.1:14550' 
+
+[gs_video]
+peer = 'connect://127.0.0.1:5600' 
+bandwidth = 20 
+
+[gs_msposd]
+fwmark = 10  #  traffic shaper label
+peer = 'connect://127.0.0.1:14551'  # outgoing connection
+
+[gs_timestamp_rx]
+fwmark = 10  #  traffic shaper label
+peer = 'connect://127.0.0.1:12345'  # outgoing connection
+
+[gs_timestamp_tx]
+fwmark = 20  #  traffic shaper label
+peer = 'listen://0.0.0.0:12346'  # listen for video stream (drone)
+mirror = True

@@ -1,0 +1,50 @@
+#!/bin/sh
+
+# Script: g2g
+# Description: Enables or disables specific init scripts by toggling their execution permissions.
+# Usage: ./g2g enable | disable
+
+# Paths to the init scripts
+DIVINUS_SCRIPT="/etc/init.d/S95divinus"
+WIFIBROADCAST_G2G_SCRIPT="/etc/init.d/S98wifibroadcast-g2g"
+MAJESTIC_SCRIPT="/etc/init.d/S95majestic"
+WIFIBROADCAST_SCRIPT="/etc/init.d/S98wifibroadcast"
+
+# Check if the user provided an argument
+if [ "$#" -ne 1 ]; then
+    echo "Usage: $0 enable | disable"
+    exit 1
+fi
+
+# Enable or disable scripts based on the argument
+case "$1" in
+    enable)
+        # Enable execution for divinus and wifibroadcast-g2g
+        chmod +x "$DIVINUS_SCRIPT"
+        chmod +x "$WIFIBROADCAST_G2G_SCRIPT"
+        echo "Enabled execution for $DIVINUS_SCRIPT and $WIFIBROADCAST_G2G_SCRIPT"
+
+        # Disable execution for majestic and wifibroadcast
+        chmod -x "$MAJESTIC_SCRIPT"
+        chmod -x "$WIFIBROADCAST_SCRIPT"
+        echo "Disabled execution for $MAJESTIC_SCRIPT and $WIFIBROADCAST_SCRIPT"
+        ;;
+    disable)
+        # Disable execution for divinus and wifibroadcast-g2g
+        chmod -x "$DIVINUS_SCRIPT"
+        chmod -x "$WIFIBROADCAST_G2G_SCRIPT"
+        echo "Disabled execution for $DIVINUS_SCRIPT and $WIFIBROADCAST_G2G_SCRIPT"
+
+        # Enable execution for majestic and wifibroadcast
+        chmod +x "$MAJESTIC_SCRIPT"
+        chmod +x "$WIFIBROADCAST_SCRIPT"
+        echo "Enabled execution for $MAJESTIC_SCRIPT and $WIFIBROADCAST_SCRIPT"
+        ;;
+    *)
+        echo "Invalid argument: $1"
+        echo "Usage: $0 enable | disable"
+        exit 1
+        ;;
+esac
+
+exit 0

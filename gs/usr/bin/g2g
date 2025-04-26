@@ -1,0 +1,79 @@
+#!/bin/bash
+
+# Script: g2g
+# Description: Toggles between "g2g enable" and "g2g disable" modes by renaming configuration files.
+# Usage: ./g2g enable | disable
+
+# List of files to process
+FILES=(
+    "/etc/wifibroadcast.cfg"
+    "/usr/local/bin/pixelpilot"
+    "/config/scripts/osd.json"
+)
+
+# Check if the user provided an argument
+if [ "$#" -ne 1 ]; then
+    echo "Usage: $0 enable | disable"
+    exit 1
+fi
+
+# Function to enable g2g mode
+enable_g2g() {
+    for FILE in "${FILES[@]}"; do
+        if [ -f "$FILE" ]; then
+            # Check if the .ori backup exists
+            if [ ! -f "${FILE}.ori" ]; then
+                echo "Backing up $FILE to ${FILE}.ori"
+                mv "$FILE" "${FILE}.ori"
+            fi
+
+            # Check if the .g2g version exists and move it into place
+            if [ -f "${FILE}.g2g" ]; then
+                echo "Activating g2g version for $FILE"
+                mv "${FILE}.g2g" "$FILE"
+            fi
+        else
+            echo "File $FILE not found, skipping..."
+        fi
+    done
+}
+
+# Function to disable g2g mode
+disable_g2g() {
+    for FILE in "${FILES[@]}"; do
+        if [ -f "$FILE" ]; then
+            # Check if the .g2g backup exists
+            if [ ! -f "${FILE}.g2g" ]; then
+                echo "Backing up $FILE to ${FILE}.g2g"
+                mv "$FILE" "${FILE}.g2g"
+            fi
+
+            # Check if the .ori version exists and move it into place
+            if [ -f "${FILE}.ori" ]; then
+                echo "Restoring original version for $FILE"
+                mv "${FILE}.ori" "$FILE"
+            fi
+        else
+            echo "File $FILE not found, skipping..."
+        fi
+    done
+}
+
+# Main logic
+case "$1" in
+    enable)
+        echo "Enabling g2g mode..."
+        enable_g2g
+        ;;
+    disable)
+        echo "Disabling g2g mode..."
+        disable_g2g
+        ;;
+    *)
+        echo "Invalid argument: $1"
+        echo "Usage: $0 enable | disable"
+        exit 1
+        ;;
+esac
+
+exit 0

@@ -1,0 +1,306 @@
+{
+    "format": "0.0.1",
+    "assets_dir": "/usr/local/share/pixelpilot/",
+    "widgets": [
+        {
+            "type": "IconSelectorWidget",
+            "name": "RSSI of antenna 1",
+            "x": -96,
+            "y": 0,
+            "facts": [
+                {"name": "wfbcli.rx.ant_stats.rssi_avg","tags": {"ant_id": "0", "id": "video rx"}}
+            ],
+            "ranges_and_icons": [
+                {"range": [-49, 1], "icon_path": "signal1.png"},
+                {"range": [-59, -50],"icon_path": "signal2.png"},
+                {"range": [-69, -60],"icon_path": "signal3.png"},
+                {"range": [-79, -70],"icon_path": "signal4.png"},
+                {"range": [-130, -80],"icon_path": "signal5.png"}
+            ]
+        },
+        {
+            "type": "IconSelectorWidget",
+            "name": "RSSI of antenna 2",
+            "x": -192,
+            "y": 0,
+            "facts": [
+                {"name": "wfbcli.rx.ant_stats.rssi_avg","tags": {"ant_id": "1", "id": "video rx"}}
+            ],
+            "ranges_and_icons": [
+                {"range": [-49, 1], "icon_path": "signal1.png"},
+                {"range": [-59, -50],"icon_path": "signal2.png"},
+                {"range": [-69, -60],"icon_path": "signal3.png"},
+                {"range": [-79, -70],"icon_path": "signal4.png"},
+                {"range": [-130, -80],"icon_path": "signal5.png"}
+            ],
+            "calculation": "wfbcli_rx_ant_stats_rssi_avg_ant_id_1_id_video_rx"
+        },
+        {
+            "type": "IconSelectorWidget",
+            "name": "RSSI of antenna 3",
+            "x": -288,
+            "y": 0,
+            "facts": [
+                {"name": "wfbcli.rx.ant_stats.rssi_avg","tags": {"ant_id": "256", "id": "video rx"}}
+            ],
+            "ranges_and_icons": [
+                {"range": [-49, 1], "icon_path": "signal1.png"},
+                {"range": [-59, -50],"icon_path": "signal2.png"},
+                {"range": [-69, -60],"icon_path": "signal3.png"},
+                {"range": [-79, -70],"icon_path": "signal4.png"},
+                {"range": [-130, -80],"icon_path": "signal5.png"}
+            ]
+        },
+        {
+            "type": "IconSelectorWidget",
+            "name": "RSSI of antenna 4",
+            "x": -384,
+            "y": 0,
+            "facts": [
+                {"name": "wfbcli.rx.ant_stats.rssi_avg","tags": {"ant_id": "257", "id": "video rx"}}
+            ],
+            "ranges_and_icons": [
+                {"range": [-49, 1], "icon_path": "signal1.png"},
+                {"range": [-59, -50],"icon_path": "signal2.png"},
+                {"range": [-69, -60],"icon_path": "signal3.png"},
+                {"range": [-79, -70],"icon_path": "signal4.png"},
+                {"range": [-130, -80],"icon_path": "signal5.png"}
+            ]
+        },
+        {
+            "type": "IconSelectorWidget",
+            "name": "RSSI of antenna 5",
+            "x": -480,
+            "y": 0,
+            "facts": [
+                {"name": "wfbcli.rx.ant_stats.rssi_avg","tags": {"ant_id": "512", "id": "video rx"}}
+            ],
+            "ranges_and_icons": [
+                {"range": [-49, 1], "icon_path": "signal1.png"},
+                {"range": [-59, -50],"icon_path": "signal2.png"},
+                {"range": [-69, -60],"icon_path": "signal3.png"},
+                {"range": [-79, -70],"icon_path": "signal4.png"},
+                {"range": [-130, -80],"icon_path": "signal5.png"}
+            ]
+        },
+        {
+            "type": "IconSelectorWidget",
+            "name": "RSSI of antenna 6",
+            "x": -576,
+            "y": 0,
+            "facts": [
+                {"name": "wfbcli.rx.ant_stats.rssi_avg","tags": {"ant_id": "513", "id": "video rx"}}
+            ],
+            "ranges_and_icons": [
+                {"range": [-49, 1], "icon_path": "signal1.png"},
+                {"range": [-59, -50],"icon_path": "signal2.png"},
+                {"range": [-69, -60],"icon_path": "signal3.png"},
+                {"range": [-79, -70],"icon_path": "signal4.png"},
+                {"range": [-130, -80],"icon_path": "signal5.png"}
+            ]
+        },
+        {
+            "name": "Metrics background",
+            "type": "BoxWidget",
+            "x": -470,
+            "y": 100,
+            "width": 370,
+            "height": 350,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "alpha": 0.4
+            },
+            "facts": []
+        },        
+        {
+            "name": "Video FPS and resolution",
+            "type": "VideoWidget",
+            "x": -450,
+            "y": 126,
+            "icon_path": "framerate.png",
+            "template": "%u fps | %ux%u",
+            "per_second_window_s": 2,
+            "per_second_bucket_ms": 200,
+            "facts": [
+                {
+                    "__comment": "Will be converted to per-second",
+                    "name": "video.displayed_frame"
+                },
+                {
+                    "name": "video.width"
+                },
+                {
+                    "name": "video.height"
+                }
+            ]
+        },        
+        {
+            "name": "Video link throughput",
+            "type": "VideoBitrateWidget",
+            "x": -450,
+            "y": 156,
+            "icon_path": "network.png",
+            "template": "%f Mbps",
+            "per_second_window_s": 2,
+            "per_second_bucket_ms": 100,
+            "facts": [
+                {
+                    "__comment": "Should be sum per-second, scaled to Megs",
+                    "name": "gstreamer.received_bytes"
+                }
+            ]
+        },
+        {
+            "name": "Latency glass to glass",
+            "type": "VideoG2GWidget",
+            "x": -450,
+            "y": 186,
+            "icon_path": "network.png",
+            "template": "Avg %f ms | Max %f ms",
+            "per_second_window_s": 2,
+            "per_second_bucket_ms": 200,
+            "facts": [
+                {
+                    "name": "timestamp.g2g"
+                }
+            ]
+        },
+        {
+            "name": "Latency sensor",
+            "type": "VideoSensorWidget",
+            "x": -450,
+            "y": 216,
+            "icon_path": "network.png",
+            "template": "Snr %f ms | Max %f ms",
+            "per_second_window_s": 2,
+            "per_second_bucket_ms": 200,
+            "facts": [
+                {
+                    "name": "timestamp.sensor"
+                }
+            ]
+        },       
+        {
+            "name": "Latency isp",
+            "type": "VideoIspWidget",
+            "x": -450,
+            "y": 246,
+            "icon_path": "network.png",
+            "template": "Isp %f ms | Max %f ms",
+            "per_second_window_s": 2,
+            "per_second_bucket_ms": 200,
+            "facts": [
+                {
+                    "name": "timestamp.isp"
+                }
+            ]
+        },
+        {
+            "name": "Latency vpe/venc",
+            "type": "VideoVpeVencWidget",
+            "x": -450,
+            "y": 276,
+            "icon_path": "network.png",
+            "template": "Enc %f ms | Max %f ms",
+            "per_second_window_s": 2,
+            "per_second_bucket_ms": 200,
+            "facts": [
+                {
+                    "name": "timestamp.vpe_venc"
+                }
+            ]
+        },
+        {
+            "name": "Latency transmission",
+            "type": "VideoTransmissionWidget",
+            "x": -450,
+            "y": 306,
+            "icon_path": "network.png",
+            "template": "Tra %f ms | Max %f ms",
+            "per_second_window_s": 2,
+            "per_second_bucket_ms": 200,
+            "facts": [
+                {
+                    "name": "timestamp.transmission"
+                }
+            ]
+        },
+        {
+            "name": "Latency Decoding",
+            "type": "VideoDecodingWidget",
+            "x": -450,
+            "y": 336,
+            "icon_path": "network.png",
+            "template": "Dec %f ms | Max %f ms",
+            "per_second_window_s": 2,
+            "per_second_bucket_ms": 200,
+            "facts": [
+                {
+                    "name": "timestamp.decoding"
+                }
+            ]
+        },
+        {
+            "name": "Latency Display",
+            "type": "VideoDisplayWidget",
+            "x": -450,
+            "y": 366,
+            "icon_path": "network.png",
+            "template": "Dis %f ms | Max %f ms",
+            "per_second_window_s": 2,
+            "per_second_bucket_ms": 200,
+            "facts": [
+                {
+                    "name": "timestamp.display"
+                }
+            ]
+        },
+        {
+            "name": "Frame Size",
+            "type": "VideoSizeWidget",
+            "x": -450,
+            "y": 396,
+            "icon_path": "network.png",
+            "template": "Size %f kb | Max %f kb",
+            "per_second_window_s": 2,
+            "per_second_bucket_ms": 200,
+            "facts": [
+                {
+                    "name": "timestamp.size"
+                }
+            ]
+        },
+        {
+            "name": "DVR status",
+            "type": "DvrStatusWidget",
+            "x": -450,
+            "y": 426,
+            "icon_path": "sdcard-white.png",
+            "text": "Recording",
+            "facts": [
+                {"name": "dvr.recording"}
+            ]
+        },
+        {
+            "name": "Custom fading message",
+            "type": "PopupWidget",
+            "x": 400,
+            "y": 50,
+            "timeout_ms": 10000,
+            "facts": [
+                {"name": "osd.custom_message"}
+            ]
+        },
+        {
+            "name": "msposd",
+            "type": "ExternalSurfaceWidget",
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "facts": []
+        }
+    ]
+}
