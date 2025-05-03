@@ -1,5 +1,6 @@
 #!/bin/sh
 wfb_key=/etc/drone.key
+wfb_cfg=/etc/wfb.yaml
 wfb_dev=wlan0
 
 echo_log() {
@@ -17,8 +18,9 @@ wfb_yaml() {
 }
 
 load_config() {
-	wfb_yaml /etc/wfb.yaml
-	[ ! -e "$wfb_key" ] && wfb_key=/rom/etc/drone.key
+	wfb_yaml /rom"$wfb_cfg"
+	wfb_yaml "$wfb_cfg"
+	[ ! -e "$wfb_key" ] && wfb_key=/rom"$wfb_key"
 }
 
 load_modules() {
@@ -26,17 +28,14 @@ load_modules() {
 		case "$card" in
 			"0bda:8812" | "0bda:881a" | "0b05:17d2" | "2357:0101" | "2604:0012")
 				driver=88XXau
-				modprobe "$driver"
 				;;
 
 			"0bda:a81a")
 				driver=8812eu
-				modprobe "$driver" rtw_regd_src=1 rtw_tx_pwr_by_rate=0 rtw_tx_pwr_lmt_enable=0
 				;;
 
 			"0bda:f72b" | "0bda:b733")
 				driver=8733bu
-				modprobe "$driver" rtw_regd_src=1 rtw_tx_pwr_by_rate=0 rtw_tx_pwr_lmt_enable=0
 				;;
 		esac
 	done
@@ -47,9 +46,30 @@ load_modules() {
 	fi
 
 	echo_log "Detected driver: $driver"
+	[ -e /sys/class/net/"$wfb_dev" ] && return
+	sleep 1
+
+	if [ "$driver" != "88XXau" ]; then
+		opt1="rtw_tx_pwr_by_rate=2"
+		opt2="rtw_tx_pwr_lmt_enable=2"
+	fi
+
+	modprobe "$driver" "$opt1" "$opt2"
+	sleep 3
+
 	if ! ifconfig "$wfb_dev" up; then
 		echo_log "Wireless driver not found!"
 		exit 1
+	fi
+}
+
+load_mlink() {
+	ifconfig "$wfb_dev" mtu "$mlink"
+
+	nalu=$((mlink - 100))
+	if [ "$(cli -i /etc/divinus.yaml -g .fpv.naluSize)" != "$nalu" ]; then
+		cli -i /etc/divinus.yaml -s .fpv.naluSize "$nalu"
+		killall -1 divinus
 	fi
 }
 
@@ -66,7 +86,7 @@ load_interface() {
 
 start_broadcast() {
 	echo_log "Starting wfb_tx"
-	wfb_tx -K "$wfb_key" -M "$mcs_index" -B "$width" -k "$fec_k" -n "$fec_n"  \
+	wfb_tx -K "$wfb_key" -M "$mcs_index" -B "$width" -k "$fec_k" -n "$fec_n" -U rtp_local \
 		-S "$stbc" -L "$ldpc" -i "$link_id" -C 8000 -G short "$wfb_dev" &> /dev/null &
 }
 
@@ -108,6 +128,7 @@ start_telemetry() {
 start() {
 	load_config
 	load_modules
+	load_mlink
 	load_interface
 
 	stop
@@ -130,13 +151,16 @@ case "$1" in
 		$1
 		;;
 
-	resetw)
-		cp -f /rom/etc/wfb.yaml /etc/wfb.yaml
-		start
+	reset)
+		cp -f /rom"$wfb_cfg" "$wfb_cfg"
+		;;
+	cli)
+		shift
+		yaml-cli -i "$wfb_cfg" "$@"
 		;;
 
 	*)
-		echo "Usage: $0 {start|stop|resetw}"
+		echo "Usage: $0 {start|stop|reset|cli}"
 		exit 1
 		;;
 esac

@@ -10,54 +10,46 @@ system:
   venc_stream_thread_stack_size: 16384
   web_server_thread_stack_size: 65536
   watchdog: 30
-
 isp:
   mirror: true
   flip: true
   antiflicker: 0
-
 osd:
   enable: false
-
 mdns:
   enable: false
-
 rtsp:
   enable: false
   enable_auth: false
   auth_user: admin
   auth_pass: 12345
   port: 554
-
 stream:
   enable: false
   udp_srcport: 5600
   dest:
-    - udp://239.255.255.0:5600
-
+  - udp://239.255.255.0:5600
 fpv:
   enable: true
-  port: 5600
-  ip: 127.0.0.1
-  noiselevel: 0
+  noiselevel: 1
+  force_sensor_index: 3
   intraQp: false
-  #intraLine: 16
   cus3A: true
   maxQp: 48
   minQp: 12
   IPQPDelta: -4
-  maxIQp: 48 
+  maxIQp: 48
   minIQp: 12
   maxIPProp: 5
   maxISize: 0
   maxPSize: 0
-
+  intraLine: 8
+  naluSize: 1000
 ts:
   enable: true
   ts_port_rx: 12346
   ts_port_tx: 12345
   ip: 127.0.0.1
-  
 night_mode:
   enable: false
   ir_sensor_pin: 62
@@ -68,7 +60,6 @@ night_mode:
   pin_switch_delay_us: 150
   adc_device: /dev/sar_adc_drv
   adc_threshold: 128
-
 http_post:
   enable: false
   host: <your host>
@@ -79,16 +70,14 @@ http_post:
   interval: 60
   login: <your login>
   password: <yout pass>
-
 audio:
   enable: false
   srate: 48000
   bitrate: 128
-
 mp4:
   enable: true
   codec: H265
-  mode: CBR
+  mode: cbr
   width: 1920
   height: 1080
   fps: 120
@@ -101,7 +90,6 @@ jpeg:
   width: 1920
   height: 1080
   qfactor: 70
-
 mjpeg:
   enable: false
   mode: CBR

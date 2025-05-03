@@ -23,7 +23,7 @@ The project is currently in **alpha** stage. It includes experimental features a
    ```
 2. Activate the `g2g` mode on the ground station:
    ```bash
-   ssh root@<gs.ip> gs enable
+   ssh root@<gs.ip> g2g enable
    ```
 
 ### Drone Setup
@@ -31,18 +31,18 @@ The project is currently in **alpha** stage. It includes experimental features a
    ```bash
    cd air
    scp -r -O etc/ lib/ usr/ root@<drone.ip>:/
-   ssh root@<drone.ip> gs enable
+   ssh root@<drone.ip> g2g enable
    ```
 
 ### Reverting to the Default Installation
 To revert to the default installation on the ground station:
 ```bash
-ssh root@<gs.ip> gs disable
+ssh root@<gs.ip> g2g disable
 ```
 
 To revert to the default installation on the drone:
 ```bash
-ssh root@<drone.ip> gs disable
+ssh root@<drone.ip> g2g disable
 ```
 
 ---
@@ -68,9 +68,7 @@ ssh root@<drone.ip> gs disable
 ## Limitations
 
 - **Only H.265 is supported**: H.264 is not currently supported.
-- **No YAML-CLI support**: Configuration changes cannot be made via a YAML-based CLI.
 - **No configurator support**: Configuration changes cannot be made via a configurator (avalonia or windows one)
-- **No configuration changes from `msposd`**: Configuration updates via `msposd` are not supported.
 - **Tunnel disabled**: The tunnel is disabled by default as it interferes with the video stream. Users can re-enable it by modifying `/etc/wifibroadcast.cfg` on the ground station.
 - **Transmission offset**: The transfer time via `wfb-ng` has been measured to have a fixed offset of **3ms** for timestamped packets. This offset is added systematically. While OpenIPC-G2G can dynamically determine the transmission latency, enabling this feature currently disrupts the video stream.
 - **No msposd rendering on the drone**: The only available rendering is on the ground station.
@@ -86,12 +84,12 @@ The `g2g` script is used to toggle between the `g2g` mode and the default mode. 
 - **Enable G2G Mode**:
   Activates the `g2g` configuration:
   ```bash
-  gs enable
+  g2g enable
   ```
 - **Disable G2G Mode**:
   Restores the original configuration:
   ```bash
-  gs disable
+  g2g disable
   ```
 
 ### Note
