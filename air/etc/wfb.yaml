@@ -1,16 +1,17 @@
 wireless:
-  txpower: 40
+  txpower: 30
   channel: 140
   width: 20
-  mlink: 4000
+  mlink: 1500
 broadcast:
-  mcs_index: 4
+  mcs_index: 6 
   tun_index: 1
-  fec_k: 8
-  fec_n: 11
+  fec_k: 2
+  fec_n: 3
   stbc: 1
   ldpc: 1
   link_id: 7669206
+  short_gi: False
 telemetry:
   router: msposd
   serial: ttyS2

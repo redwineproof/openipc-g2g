@@ -31,20 +31,19 @@ stream:
   - udp://239.255.255.0:5600
 fpv:
   enable: true
-  noiselevel: 1
+  naluSize: 1400
+  noiselevel: 0
   force_sensor_index: 3
-  intraQp: false
+  intraQp: true
   cus3A: true
   maxQp: 48
   minQp: 12
-  IPQPDelta: -4
+  IPQPDelta: 0
   maxIQp: 48
   minIQp: 12
   maxIPProp: 5
   maxISize: 0
   maxPSize: 0
-  intraLine: 8
-  naluSize: 1000
 ts:
   enable: true
   ts_port_rx: 12346
@@ -77,18 +76,17 @@ audio:
 mp4:
   enable: true
   codec: H265
-  mode: cbr
+  mode: CBR
   width: 1920
   height: 1080
   fps: 120
-  gop: 180 
-  bitrate: 8192
+  gop: 12
+  bitrate: 8000
   profile: 1
-
 jpeg:
   enable: false
-  width: 1920
-  height: 1080
+  width: 1280
+  height: 720
   qfactor: 70
 mjpeg:
   enable: false

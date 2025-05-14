@@ -14,7 +14,8 @@
 
 sleep 5
 
-echo "&L01 &F35 &G1 
+echo "&L01 &F35 &G1
+
 CPU:&C &B Temp:&T Dropped:&p">/tmp/MSPOSD.msg
 
 exit 0

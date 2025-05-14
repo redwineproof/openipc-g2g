@@ -117,7 +117,7 @@ start_telemetry() {
 	echo_log "Starting wfb telemetry sessions"
 	# msposd tx	
 	wfb_tx -K "$wfb_key" -M "$tun_index" -B "$width" -k 1 -n 2 \
-		-S "$stbc" -L "$ldpc" -i "$link_id" -p 33 -u 14551 "$wfb_dev" &> /dev/null &
+		-S "$stbc" -L "$ldpc" -i "$link_id" -p 33 -u 14551 "$wfb_dev" &> /dev/null & 
 	# divinus timestamp
 	wfb_tx -K "$wfb_key" -M "$tun_index" -B "$width" -k 1 -n 2 \
 		-S "$stbc" -L "$ldpc" -i "$link_id" -p 34 -u 12345 "$wfb_dev" &> /dev/null &

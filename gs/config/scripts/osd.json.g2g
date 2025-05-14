@@ -99,6 +99,184 @@
                 {"range": [-130, -80],"icon_path": "signal5.png"}
             ]
         },
+
+        {
+            "name": "Metrics background 2",
+            "type": "BoxWidget",
+            "x": -1100,
+            "y": 100,
+            "width": 530,
+            "height": 100,
+            "color": {
+                "r": 0.0,
+                "g": 0.2,
+                "b": 0.0,
+                "alpha": 0.4
+            },
+            "facts": []
+        },
+
+        {
+            "type": "TplTextWidget",
+            "name": "WFB link status",
+            "x": -1080,
+            "y": 120,
+            "template": "MCS:%u F:%u BW:%u RSSI(dBm):%i %i %i %i",
+            "facts": [
+                {
+                    "name": "wfbcli.rx.ant_stats.mcs",
+                    "tags": {
+                        "id": "video rx",
+                        "ant_id": "0"
+                    }
+                },
+
+                {
+                    "name": "wfbcli.rx.ant_stats.freq",
+                    "tags": {
+                        "id": "video rx",
+                        "ant_id": "0"
+                    }
+                },
+
+                {
+                    "name": "wfbcli.rx.ant_stats.bw",
+                    "tags": {
+                        "id": "video rx",
+                        "ant_id": "0"
+                    }
+                },
+                {
+                    "name": "wfbcli.rx.ant_stats.rssi_avg",
+                    "tags": {
+                        "id": "video rx",
+                        "ant_id": "0"
+                    }
+                },
+                {
+                    "name": "wfbcli.rx.ant_stats.rssi_avg",
+                    "tags": {
+                        "id": "video rx",
+                        "ant_id": "1"
+                    }
+                },
+                {
+                    "name": "wfbcli.rx.ant_stats.rssi_avg",
+                    "tags": {
+                        "id": "video rx",
+                        "ant_id": "256"
+                    }
+                },
+                {
+                    "name": "wfbcli.rx.ant_stats.rssi_avg",
+                    "tags": {
+                        "id": "video rx",
+                        "ant_id": "257"
+                    }
+                }
+
+            ]
+        },
+        
+        {
+            "name": "Wfb Stats",
+            "type": "WfbStatsWidget",
+            "x": -1080,
+            "y": 150,
+            "icon_path": "network.png",
+            "template": "Pkt/s:%i R:%f L:%f E:%f",
+            "per_second_window_s": 2,
+            "per_second_bucket_ms": 200,
+            "facts": [
+                {"name": "wfbcli.rx.packets.out.delta", "tags": {"id": "video rx"}},
+                {"name": "wfbcli.rx.packets.fec_rec.delta", "tags": {"id": "video rx"}},
+                {"name": "wfbcli.rx.packets.lost.delta", "tags": {"id": "video rx"}},
+                {"name": "wfbcli.rx.packets.dec_err.delta", "tags": {"id": "video rx"}}
+            ]
+        },
+
+        {
+            "type": "TplTextWidget",
+            "name": "RX packet total",
+            "x": -1080,
+            "y": 180,
+            "template": "PKT:%u R:%u L:%u E:%u",
+            "facts": [
+                {"name": "wfbcli.rx.packets.out.total", "tags": {"id": "video rx"}},
+                {"name": "wfbcli.rx.packets.fec_rec.total", "tags": {"id": "video rx"}},
+                {"name": "wfbcli.rx.packets.lost.total", "tags": {"id": "video rx"}},
+                {"name": "wfbcli.rx.packets.dec_err.total", "tags": {"id": "video rx"}}
+            ]
+        },
+        
+        {
+            "name": "Dump raw facts to the scren (remove `--` from `type` to enable)",
+            "type": "--DebugWidget",
+            "x": 10,
+            "y": -200,
+            "facts": [
+                {
+                    "name": "mavlink.heartbeet.base_mode.armed"
+                },
+                {
+                    "name": "wfbcli.rx.packets.all",
+                    "tags": {
+                        "id": "video rx"
+                    }
+                },
+                {
+                    "name": "wfbcli.rx.packets.lost",
+                    "tags": {
+                        "id": "video rx"
+                    }
+                },
+                {
+                    "name": "wfbcli.rx.ant_stats.freq",
+                    "tags": {
+                        "id": "video rx",
+                        "ant_id": "0"
+                    }
+                },
+                {
+                    "name": "wfbcli.rx.ant_stats.mcs",
+                    "tags": {
+                        "id": "video rx",
+                        "ant_id": "0"
+                    }
+                },
+                {
+                    "name": "wfbcli.rx.ant_stats.rssi_avg",
+                    "tags": {
+                        "id": "video rx",
+                        "ant_id": "0"
+                    }
+                },
+                {
+                    "name": "wfbcli.rx.ant_stats.freq",
+                    "tags": {
+                        "id": "video rx",
+                        "ant_id": "1"
+                    }
+                },
+                {
+                    "name": "wfbcli.rx.ant_stats.mcs",
+                    "tags": {
+                        "id": "video rx",
+                        "ant_id": "1"
+                    }
+                },
+                {
+                    "name": "wfbcli.rx.ant_stats.rssi_avg",
+                    "tags": {
+                        "id": "video rx",
+                        "ant_id": "1"
+                    }
+                }
+            ]
+        },
+
+
+
         {
             "name": "Metrics background",
             "type": "BoxWidget",
