@@ -16,18 +16,18 @@ The project is currently in **alpha** stage. It includes experimental features a
 ## Installation
 
 ### Ground Station Setup
-1. Copy the contents of the `gs` directory to the ground station:
+
+1. Adapt `gs/etc/wifibroadcast.cfg.g2g` to your need
+2. Copy the contents of the `gs` directory to the ground station and activate `g2g` mode:
    ```bash
    cd gs
    scp -r config/ etc/ usr/ root@<gs.ip>:/
-   ```
-2. Activate the `g2g` mode on the ground station:
-   ```bash
    ssh root@<gs.ip> g2g enable
    ```
 
 ### Drone Setup
-1. Copy the contents of the `air` directory to the drone:
+1. Adapt `air/etc/divinus.yaml`, `air/etc/rc.local`, `air/etc/vtxmenu.ini` and `air/etc/wfb.yaml` to your need
+2. Copy the contents of the `air` directory to the drone and activate `g2g` mode:
    ```bash
    cd air
    scp -r -O etc/ lib/ usr/ root@<drone.ip>:/
@@ -58,6 +58,8 @@ ssh root@<drone.ip> g2g disable
    - Removed GStreamer dependency for RTP packetization.
    - Implemented low-latency RTP packetization logic.
    - Added client/server timestamp logic with SEI payload numbering in the H.265 stream.
+   - Additionnal WFB in OSD
+   - Support skyzone 04X pro 720p100
 
 3. **Timestamping and Latency Measurement**:
    - Added a thread in PixelPilot to monitor `vsync` for display timing.
@@ -112,7 +114,7 @@ The OSD provides detailed latency metrics for each stage of the pipeline:
 
 - The project is in alpha, and some features may not work as expected.
 - Configuration file conflicts may occur if `.ori` or `.g2g` files are manually modified.
-- Limited testing has been performed on certain hardware setups.
+- Limited testing has been performed on `openipc thinker` and `radxa 3w`.
 
 ---
 
