@@ -1,6 +1,6 @@
 [common]
 log_interval = 100 
-wifi_channel = 140
+wifi_channel = 149
 wifi_region = '00' 
 
 [gs]

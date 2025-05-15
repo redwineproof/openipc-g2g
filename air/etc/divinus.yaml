@@ -32,13 +32,13 @@ stream:
 fpv:
   enable: true
   naluSize: 1400
-  noiselevel: 0
+  noiselevel: 0 
   force_sensor_index: 3
-  intraQp: true
+  intraQp: false
   cus3A: true
   maxQp: 48
   minQp: 12
-  IPQPDelta: 0
+  IPQPDelta: -4 
   maxIQp: 48
   minIQp: 12
   maxIPProp: 5
@@ -80,7 +80,7 @@ mp4:
   width: 1920
   height: 1080
   fps: 120
-  gop: 12
+  gop: 120
   bitrate: 8000
   profile: 1
 jpeg:

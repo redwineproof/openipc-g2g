@@ -1,10 +1,10 @@
 wireless:
   txpower: 30
-  channel: 140
+  channel: 149
   width: 20
   mlink: 1500
 broadcast:
-  mcs_index: 6 
+  mcs_index: 2 
   tun_index: 1
   fec_k: 2
   fec_n: 3
