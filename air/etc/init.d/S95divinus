@@ -5,12 +5,6 @@ PIDFILE="/var/run/$DAEMON.pid"
 DAEMON_ARGS=""
 
 start() {
-	# need to create the pipeline with majestic (to init sensor ?)
-	majestic &
-	sleep 2
-	killall majestic
-	sleep 2
-	
 	echo -n "Starting $DAEMON: "
 	start-stop-daemon -b -m -S -q -p "$PIDFILE" -x "$DAEMON" -- $DAEMON_ARGS
 	if [ $? -eq 0 ]; then
