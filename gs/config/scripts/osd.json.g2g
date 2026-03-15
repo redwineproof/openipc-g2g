@@ -3,7 +3,7 @@
     "assets_dir": "/usr/local/share/pixelpilot/",
     "widgets": [
         {
-            "type": "IconSelectorWidget",
+            "type": "--IconSelectorWidget",
             "name": "RSSI of antenna 1",
             "x": -96,
             "y": 0,
@@ -19,7 +19,7 @@
             ]
         },
         {
-            "type": "IconSelectorWidget",
+            "type": "--IconSelectorWidget",
             "name": "RSSI of antenna 2",
             "x": -192,
             "y": 0,
@@ -36,7 +36,7 @@
             "calculation": "wfbcli_rx_ant_stats_rssi_avg_ant_id_1_id_video_rx"
         },
         {
-            "type": "IconSelectorWidget",
+            "type": "--IconSelectorWidget",
             "name": "RSSI of antenna 3",
             "x": -288,
             "y": 0,
@@ -52,7 +52,7 @@
             ]
         },
         {
-            "type": "IconSelectorWidget",
+            "type": "--IconSelectorWidget",
             "name": "RSSI of antenna 4",
             "x": -384,
             "y": 0,
@@ -68,7 +68,7 @@
             ]
         },
         {
-            "type": "IconSelectorWidget",
+            "type": "--IconSelectorWidget",
             "name": "RSSI of antenna 5",
             "x": -480,
             "y": 0,
@@ -103,8 +103,8 @@
         {
             "name": "Metrics background 2",
             "type": "BoxWidget",
-            "x": -1100,
-            "y": 100,
+            "x": -600,
+            "y": 450,
             "width": 530,
             "height": 100,
             "color": {
@@ -119,8 +119,8 @@
         {
             "type": "TplTextWidget",
             "name": "WFB link status",
-            "x": -1080,
-            "y": 120,
+            "x": -580,
+            "y": 470,
             "template": "MCS:%u F:%u BW:%u RSSI(dBm):%i %i %i %i",
             "facts": [
                 {
@@ -181,8 +181,8 @@
         {
             "name": "Wfb Stats",
             "type": "WfbStatsWidget",
-            "x": -1080,
-            "y": 150,
+            "x": -580,
+            "y": 500,
             "icon_path": "network.png",
             "template": "Pkt/s:%i R:%f L:%f E:%f",
             "per_second_window_s": 2,
@@ -198,8 +198,8 @@
         {
             "type": "TplTextWidget",
             "name": "RX packet total",
-            "x": -1080,
-            "y": 180,
+            "x": -580,
+            "y": 530,
             "template": "PKT:%u R:%u L:%u E:%u",
             "facts": [
                 {"name": "wfbcli.rx.packets.out.total", "tags": {"id": "video rx"}},
@@ -208,7 +208,69 @@
                 {"name": "wfbcli.rx.packets.dec_err.total", "tags": {"id": "video rx"}}
             ]
         },
-        
+
+        {
+            "name": "horizon",
+            "type": "MspHorizonWidget",
+            "x": 100,
+            "y": 0,
+            "facts": [
+                { "name": "cam_attitude_roll" },
+                { "name": "cam_attitude_pitch" }
+            ]
+        },
+
+        {
+            "name": "vr_marker",
+            "type": "SimpleVRMarkerWidget",
+            "x": 0,
+            "y": 0,
+            "facts": [
+                { "name": "drone_gps_lat" },
+                { "name": "drone_gps_lon" },
+                { "name": "drone_gps_alt" },
+                { "name": "marker_gps_lat" },
+                { "name": "marker_gps_lon" },
+                { "name": "marker_gps_alt" },
+                { "name": "cam_attitude_roll" },
+                { "name": "cam_attitude_pitch" },
+                { "name": "drone_attitude_yaw" }
+            ]
+        },
+
+        {
+            "type": "--DebugWidget",
+            "name": "debug_gps",
+            "x": 200,
+            "y": 200,
+            "facts": [
+                { "name": "drone_gps_lat" },
+                { "name": "drone_gps_lon" },
+                { "name": "drone_gps_alt" },
+                { "name": "marker_gps_lat" },
+                { "name": "marker_gps_lon" },
+                { "name": "marker_gps_alt" },
+                { "name": "cam_attitude_roll" },
+                { "name": "cam_attitude_pitch" },
+                { "name": "drone_attitude_yaw" }
+            ]
+        },
+
+        {
+            "type": "--DebugWidget",
+            "name": "debug_telemetry",
+            "x": 10,
+            "y": 10,
+            "facts": [
+                
+                { "name": "drone_esc1_voltage" },
+                { "name": "drone_esc1_current" },
+                { "name": "drone_esc1_rpm" },
+                { "name": "drone_esc1_temp" }
+            
+            ]
+        },
+
         {
             "name": "Dump raw facts to the scren (remove `--` from `type` to enable)",
             "type": "--DebugWidget",
@@ -463,7 +525,7 @@
         },
         {
             "name": "Custom fading message",
-            "type": "PopupWidget",
+            "type": "--PopupWidget",
             "x": 400,
             "y": 50,
             "timeout_ms": 10000,
